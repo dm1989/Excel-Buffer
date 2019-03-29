@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel-Buffer", "Excel-Buffer\Excel-Buffer.csproj", "{391FE38B-09B3-4542-B3FE-7FBA7C39B65E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{391FE38B-09B3-4542-B3FE-7FBA7C39B65E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{391FE38B-09B3-4542-B3FE-7FBA7C39B65E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{391FE38B-09B3-4542-B3FE-7FBA7C39B65E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{391FE38B-09B3-4542-B3FE-7FBA7C39B65E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F1D514A-D357-48A8-855B-E01F40320767}
+	EndGlobalSection
+EndGlobal
