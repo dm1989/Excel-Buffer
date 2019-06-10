@@ -10,7 +10,7 @@ namespace Excel_Buffer
 {
     public static class Input
     {
-        private static List<T> PullExcelAsList<T>(string excelPath, string sheetName, int startingRow)
+        public static List<T> PullExcelAsList<T>(string excelPath, string sheetName, int startingRow)
         {
             DataSet ExcelSheet = GetExcelAsDataSet(excelPath);
             Type model = typeof(T);
