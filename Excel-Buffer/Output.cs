@@ -1,5 +1,7 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -8,7 +10,26 @@ namespace Excel_Buffer
 {
     public static class Output
     {
-        public static void OutputListToExcel<T>(List<T> dataToOutput, string targetPath, string targetSheetName, int startingRow)
+        public static void OutputListToExcel<T>(List<T> source, string outputPath)
+        {
+            var stream = new System.IO.MemoryStream();
+            using (ExcelPackage package = new ExcelPackage(stream))
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Sheet1");
+                worksheet.DefaultColWidth = 20;
+                worksheet.Cells.LoadFromCollection(source, true, OfficeOpenXml.Table.TableStyles.Medium18);
+                package.Save();
+            }
+            stream.Position = 0;
+            using (FileStream file = new FileStream(outputPath, FileMode.OpenOrCreate, System.IO.FileAccess.Write))
+            {
+                byte[] bytes = new byte[stream.Length];
+                stream.Read(bytes, 0, (int)stream.Length);
+                file.Write(bytes, 0, bytes.Length);
+                stream.Close();
+            }
+        }
+        public static void OutputListToExcelInterop<T>(List<T> dataToOutput, string targetPath, string targetSheetName, int startingRow)
         {
             Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
             Excel.Range xlRange;
