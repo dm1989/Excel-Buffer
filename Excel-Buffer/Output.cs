@@ -21,13 +21,17 @@ namespace Excel_Buffer
                 package.Save();
             }
             stream.Position = 0;
-            using (FileStream file = new FileStream(outputPath, FileMode.OpenOrCreate, System.IO.FileAccess.Write))
+            using (FileStream file = new FileStream(outputPath, FileMode.Create, System.IO.FileAccess.Write))
             {
                 byte[] bytes = new byte[stream.Length];
                 stream.Read(bytes, 0, (int)stream.Length);
                 file.Write(bytes, 0, bytes.Length);
                 stream.Close();
             }
+        }
+        public static void AppendListToExcel<T>(List<T> source, string outputPath)
+        {
+
         }
         public static void OutputListToExcelInterop<T>(List<T> dataToOutput, string targetPath, string targetSheetName, int startingRow)
         {

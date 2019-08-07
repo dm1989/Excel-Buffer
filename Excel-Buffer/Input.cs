@@ -10,9 +10,17 @@ namespace Excel_Buffer
 {
     public static class Input
     {
-        public static List<T> PullExcelAsList<T>(string excelPath, string sheetName, int startingRow)
+        public static List<T> PullExcelAsList<T>(string excelPath, string sheetName, int startingRow, DataSet blankPathSource = null)
         {
-            DataSet ExcelSheet = GetExcelAsDataSet(excelPath);
+            DataSet ExcelSheet;
+            if (blankPathSource == null)
+            {
+                ExcelSheet = GetExcelAsDataSet(excelPath);
+            }
+            else
+            {
+                ExcelSheet = blankPathSource;
+            }
             Type model = typeof(T);
             PropertyInfo[] properties = model.GetProperties();
             ConstructorInfo constructor = model.GetConstructor(Type.EmptyTypes);
