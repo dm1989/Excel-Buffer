@@ -10,8 +10,9 @@ namespace Excel_Buffer
 {
     public static class Input
     {
-        public static List<T> PullExcelAsList<T>(string excelPath, string sheetName, int startingRow, DataSet blankPathSource = null)
+        public static List<T> PullExcelAsList<T>(string excelPath, int startingRow, string sheetName = "", DataSet blankPathSource = null)
         {
+            
             DataSet ExcelSheet;
             if (blankPathSource == null)
             {
@@ -26,6 +27,10 @@ namespace Excel_Buffer
             ConstructorInfo constructor = model.GetConstructor(Type.EmptyTypes);
             List<MethodInfo> members = model.GetMethods().ToList();
             var returnList = new List<T>();
+            if (sheetName.Equals(""))
+            {
+                sheetName = ExcelSheet.Tables[0].TableName;
+            }
             foreach (DataTable table in ExcelSheet.Tables)
             {
                 if (table.TableName.Equals(sheetName))
@@ -91,12 +96,22 @@ namespace Excel_Buffer
                                     members[methodIndex].Invoke(entry, new object[] { (decimal)0 });
                                 }
                             }
+                            else if (columnType.Equals(typeof(double)))
+                            {
+                                try
+                                {
+                                    members[methodIndex].Invoke(entry, new object[] { Double.Parse(row[column].ToString()) });
+                                }
+                                catch
+                                {
+                                    members[methodIndex].Invoke(entry, new object[] { (double)0 });
+                                }
+                            }
                         }
                         returnList.Add((T)entry);
                     }
                 }
             }
-            Console.WriteLine(excelPath + " Pulled");
             return returnList;
         }
         private static DataSet GetExcelAsDataSet(string filePath)

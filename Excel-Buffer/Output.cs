@@ -10,12 +10,12 @@ namespace Excel_Buffer
 {
     public static class Output
     {
-        public static void OutputListToExcel<T>(List<T> source, string outputPath)
+        public static void OutputListToExcel<T>(List<T> source, string outputPath, string sheetName = "Sheet1")
         {
             var stream = new System.IO.MemoryStream();
             using (ExcelPackage package = new ExcelPackage(stream))
             {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Sheet1");
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(sheetName);
                 worksheet.DefaultColWidth = 20;
                 worksheet.Cells.LoadFromCollection(source, true, OfficeOpenXml.Table.TableStyles.Medium18);
                 package.Save();
@@ -28,11 +28,7 @@ namespace Excel_Buffer
                 file.Write(bytes, 0, bytes.Length);
                 stream.Close();
             }
-        }
-        public static void AppendListToExcel<T>(List<T> source, string outputPath)
-        {
-
-        }
+        }      
         public static void OutputListToExcelInterop<T>(List<T> dataToOutput, string targetPath, string targetSheetName, int startingRow)
         {
             Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
